@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testing_application/content_model.dart';
+import 'package:testing_application/home_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -80,20 +81,48 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       )),
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(40),
-            width: double.infinity,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.tealAccent),
-                onPressed: () {
-                  if (currentIndex == contents.length - 1) {}
-                  _controller.nextPage(
-                      duration: Duration(microseconds: 100),
-                      curve: Curves.bounceIn);
-                },
-                child: Text(
-                    currentIndex == contents.length - 1 ? "Continue" : "Next")),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(40),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.tealAccent),
+                      onPressed: () {
+                        if (currentIndex == contents.length - 1) {}
+                        _controller.previousPage(
+                            duration: Duration(microseconds: 100),
+                            curve: Curves.bounceIn);
+                      },
+                      child: Text("skip")),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(40),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.tealAccent),
+                      onPressed: () {
+                        if (currentIndex == contents.length - 1) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        }
+                        _controller.nextPage(
+                            duration: Duration(microseconds: 100),
+                            curve: Curves.bounceIn);
+                      },
+                      child: Text(currentIndex == contents.length - 1
+                          ? "Continue"
+                          : "Next")),
+                ),
+              ),
+            ],
           )
         ],
       ),
